@@ -1,0 +1,66 @@
+#mango {
+	width: 300px;
+}
+
+#pokecount {
+	font-family: 'Black Ops One', cursive;
+	font-size: 4rem;
+	position: fixed;
+	right: 1.5rem;
+	word-wrap: break-word;
+}
+
+#poker {
+	left: -330px;
+	position: relative;
+	top: -150px;
+	width: 300px;
+}
+
+#textbanner {
+	font-family: 'Press Start 2P', cursive;
+	font-size: 2rem;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -2rem;
+	pointer-events: none;
+	position: fixed;
+	text-align: center;
+	text-shadow: 0px 0px 1px #000;
+	top: 50%;
+	width: 400px;
+	z-index: 1;
+}
+
+#wrapper {
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -150px;
+	position: fixed;
+	top: 50%;
+	width: 300px;
+}
+
+@media all and (max-width: 800px) {
+	#poker {
+		left: 0;
+		top: 100px;
+		transform: rotate(-90deg);
+	}
+}
+
+@media all and (max-width: 400px) {	
+	#pokecount {
+		font-size: 2.5rem;
+		right: 0.5rem;
+	}
+	#poker {
+		left: 0;
+		top: 100px;
+		transform: rotate(-90deg);
+	}
+	#textbanner {
+		font-size: 1.5rem;
+		margin-top: -1.5rem;
+	}
+}
