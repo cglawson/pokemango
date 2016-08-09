@@ -1,207 +1,225 @@
- $(document).ready(function() { 
- 
-  // SOUNDS
- 	var pop = new Howl({
- 		src: ['./sounds/pop.webm', './sounds/pop.ogg', './sounds/pop.mp3']
- 	});
- 	var ding = new Howl({
- 		src: ['./sounds/ding.webm', './sounds/ding.ogg', './sounds/ding.mp3']
- 	});
- 	var music = new Howl({
- 		src: ['./sounds/music.ogg', './sounds/music.mp3'],
- 		loop: true
- 	});
- 
- // BROWSER DETECTION
- 
- var isInternetExplorer = function isInternetExplorer() {
- 		var ua = window.navigator.userAgent;
+ $(document).ready(function() {
 
- 		if (ua.indexOf('MSIE ') >= 0) {
- 			return true;
- 		} else if (ua.indexOf('Trident/') >= 0) {
- 			return true;
- 		} else if (ua.indexOf('Edge/') >= 0) {
- 			return true;
- 		} else {
- 			return false;
- 		}
- 	}
+     // SOUNDS
 
- 	var isMobileOrDesktop = function isMobileOrDesktop() {
- 		if ($(window).width() <= 800) { //mobile
-			
-			//Force pre-load of sounds
- 			pop.load();
- 			ding.load();
- 			music.load();
-			
- 			return true;
- 		} else { //desktop
- 			return false;
- 		}
- 	}
- 
- // GLOBAL VARIABLES
+     /*
+		AlaskaRobotics
+		Creative Commons 0
+		http://www.freesound.org/people/AlaskaRobotics/sounds/221091/
+	*/
+     var pop = new Howl({
+         src: ['./sounds/pop.webm', './sounds/pop.ogg', './sounds/pop.mp3']
+     });
 
- 	// detect browser
- 	var terribleBrowser = isInternetExplorer();
+     /*
+		sethlind
+		Creative Commons 0
+		https://www.freesound.org/people/sethlind/sounds/265012/
+	*/
+     var ding = new Howl({
+         src: ['./sounds/ding.webm', './sounds/ding.ogg', './sounds/ding.mp3']
+     });
 
- 	// detect mobile or desktop
- 	var mobile = isMobileOrDesktop();
-	
-	// used for banner
-	var encouragements = ["Amazing!","Awesome!","Beautiful!",
- 		"Brilliant!","Exquisite!","Great!","Outrageous!","Fabulous!","Impressive!","Nice!","Splendid!","Stellar!","Superb!","Terrific!"
- 	];	 
-	var colors = ["SpringGreen", "Black", "Fuchsia", "Turquoise", "Indigo", "Violet", "CornflowerBlue"];
-	var inTransitions = ["bounceIn", "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "fadeInUp", "fadeInUpBig", "lightSpeedIn", "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight", "rollIn", "zoomIn", "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "slideInDown", "slideInLeft", "slideInRight", "slideInUp"];
-	var outTransitions = ["bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight", "bounceOutUp", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig", "fadeOutUp", "fadeOutUpBig", "lightSpeedOut", "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft", "rotateOutUpRight", "rollOut", "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp", "slideOutDown", "slideOutLeft", "slideOutRight", "slideOutUp"];
-	
- 	var pokecount = 0;
- 	var lastpoketime;
- 	var totalpoketime = 1000;
- 	var avgpoketime = 1000;
-	
-	// UTILITY FUNCTIONS
+     /*
+		Steven O'Brien
+		Creative Commons
+		https://soundcloud.com/stevenobrien/sega-genesismegadrive-boss-battle-ish-chiptune
+	*/
+     var music = new Howl({
+         src: ['./sounds/music.ogg', './sounds/music.mp3'],
+         loop: true
+     });
 
- 	var animateElement = function animateElement(element, prevanimation, animation) {
- 		$(element).removeClass("animated " + prevanimation);
+     // BROWSER DETECTION
 
- 		setTimeout(function() {
- 			$(element).addClass("animated " + animation);
- 		}, 50);
- 	};
+     var isInternetExplorer = function isInternetExplorer() {
+         var ua = window.navigator.userAgent;
 
- 	var animateBanner = function animateBanner() {
- 		var inTransition = inTransitions[Math.floor(Math.random() * inTransitions.length)];
- 		var outTransition = outTransitions[Math.floor(Math.random() * outTransitions.length)];
+         if (ua.indexOf('MSIE ') >= 0) {
+             return true;
+         } else if (ua.indexOf('Trident/') >= 0) {
+             return true;
+         } else if (ua.indexOf('Edge/') >= 0) {
+             return true;
+         } else {
+             return false;
+         }
+     }
 
- 		$("#textanchor").append("<div id='textbanner' class='animated " + inTransition + "'"+"style='color:"+colors[Math.floor(Math.random() * colors.length)]+"'>" + encouragements[Math.floor(Math.random() * encouragements.length)] + "</div>");
+     var isMobileOrDesktop = function isMobileOrDesktop() {
+         if ($(window).width() <= 800) { //mobile
 
- 		setTimeout(function() {
- 			animateElement("#textbanner", inTransition, outTransition);
- 			setTimeout(function() {
- 				$("#textbanner").remove();
- 			}, 2250);
- 		}, 1250);
- 	};
+             //Force pre-load of sounds
+             pop.load();
+             ding.load();
+             music.load();
 
- 	$(window).resize(function() { //If the screen is resized
- 		$("#poker").css("left", "");
- 		$("#poker").css("top", "");
+             return true;
+         } else { //desktop
+             return false;
+         }
+     }
 
- 		mobile = isMobileOrDesktop();
- 	});
+     // GLOBAL VARIABLES
 
-	// COMMENCE THE CLICKENING
+     // detect browser
+     var terribleBrowser = isInternetExplorer();
 
- 	$("#mango").click(function() {
- 		//Get current time
- 		var currentpoketime = new Date().getTime().valueOf();
+     // detect mobile or desktop
+     var mobile = isMobileOrDesktop();
 
- 		//Increase the mango
- 		$("#pokecount").text(++pokecount);
+     // used for banner
+     var encouragements = ["Amazing!", "Awesome!", "Beautiful!",
+         "Brilliant!", "Exquisite!", "Great!", "Outrageous!", "Fabulous!", "Impressive!", "Nice!", "Splendid!", "Stellar!", "Superb!", "Terrific!"
+     ];
+     var colors = ["SpringGreen", "Black", "Fuchsia", "Turquoise", "Indigo", "Violet", "CornflowerBlue"];
+     var inTransitions = ["bounceIn", "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "fadeInUp", "fadeInUpBig", "lightSpeedIn", "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight", "rollIn", "zoomIn", "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "slideInDown", "slideInLeft", "slideInRight", "slideInUp"];
+     var outTransitions = ["bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight", "bounceOutUp", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig", "fadeOutUp", "fadeOutUpBig", "lightSpeedOut", "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft", "rotateOutUpRight", "rollOut", "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp", "slideOutDown", "slideOutLeft", "slideOutRight", "slideOutUp"];
 
- 		//Animate the mango and counter
- 		if (pokecount > 1) {
- 			totalpoketime = currentpoketime - lastpoketime;
- 			avgpoketime = (avgpoketime + totalpoketime) / 2;
- 		}
+     var pokecount = 0;
+     var lastpoketime;
+     var totalpoketime = 1000;
+     var avgpoketime = 1000;
 
- 		if (avgpoketime < 150) {
- 			$("#pokecount").css("color", "red");
- 			if (!music.playing()) {
- 				music.fade(0.0, 1.0, 750);
- 				music.play();
- 			} else {
- 				if (!terribleBrowser) {
- 					music.rate(1.5);
- 				}
- 			}
- 		} else if (avgpoketime < 250) {
- 			$("#pokecount").css("color", "orange");
- 			if (!music.playing()) {
- 				music.fade(0.0, 1.0, 750);
- 				music.play();
- 			} else {
- 				if (!terribleBrowser) {
- 					music.rate(1.15);
- 				}
- 			}
- 		} else if (avgpoketime < 500) {
- 			$("#pokecount").css("color", "gold");
- 			if (!music.playing()) {
- 				music.fade(0.0, 1.0, 750);
- 				music.play();
- 			}
- 		} else {
- 			$("#pokecount").css("color", "");
- 			if (music.playing()) {
- 				if (terribleBrowser) {
- 					music.rate(1.0);
- 				} else {
- 					music.rate(0.8);
- 				}
+     // UTILITY FUNCTIONS
 
- 				music.fade(1.0, 0.0, 500);
- 				setTimeout(function() {
+     var animateElement = function animateElement(element, prevanimation, animation) {
+         $(element).removeClass("animated " + prevanimation);
 
- 					music.pause();
- 				}, 500);
- 			}
- 		}
+         setTimeout(function() {
+             $(element).addClass("animated " + animation);
+         }, 50);
+     };
 
- 		if (totalpoketime > 200) {
- 			if (pokecount === 1) {
- 				$(mango).addClass("animated " + "jello");
- 			} else {
- 				animateElement("#mango", "jello", "jello");
- 			}
- 		}
-		
-		if (pokecount % 10 === 0) {
- 			animateElement("#pokecount", "tada", "tada");
- 			ding.play();
- 		} else {
- 			pop.play();
- 		}
-		
-		//banner animation
- 		if(pokecount % 25 === 0) {
-			animateBanner();
-		}
+     var animateBanner = function animateBanner() {
+         var inTransition = inTransitions[Math.floor(Math.random() * inTransitions.length)];
+         var outTransition = outTransitions[Math.floor(Math.random() * outTransitions.length)];
 
-		//If maximum count reached
- 		if (pokecount == Math.pow(2, 53) - 1) {
- 			animateElement("#pokecount", "tada", "hinge");
- 			pokecount = 0;
- 		}
+         $("#textanchor").append("<div id='textbanner' class='animated " + inTransition + "'" + "style='color:" + colors[Math.floor(Math.random() * colors.length)] + "'>" + encouragements[Math.floor(Math.random() * encouragements.length)] + "</div>");
 
- 		//Animate the poker
- 		if (mobile) {
- 			$("#poker").css("top", "60px");
+         setTimeout(function() {
+             animateElement("#textbanner", inTransition, outTransition);
+             setTimeout(function() {
+                 $("#textbanner").remove();
+             }, 2250);
+         }, 1250);
+     };
 
- 			setTimeout(function() {
- 				$("#poker").css("top", "100px");
- 			}, 100);
- 		} else { //desktop
- 			$("#poker").css("left", "-290px");
+     $(window).resize(function() { //If the screen is resized
+         $("#poker").css("left", "");
+         $("#poker").css("top", "");
 
- 			setTimeout(function() {
- 				$("#poker").css("left", "-330px");
- 			}, 100);
- 		}
+         mobile = isMobileOrDesktop();
+     });
 
- 		//Set current time to previous
- 		lastpoketime = currentpoketime;
+     // COMMENCE THE CLICKENING
 
- 	});
+     $("#mango").click(function() {
+         //Get current time
+         var currentpoketime = new Date().getTime().valueOf();
 
- 	// SPACE POKE TRIGGER
- 	$('body').keyup(function(e) {
- 		if (e.keyCode == 32) {
- 			$("#mango").click();
- 		}
- 	});
+         //Increase the mango
+         $("#pokecount").text(++pokecount);
+
+         //Animate the mango and counter
+         if (pokecount > 1) {
+             totalpoketime = currentpoketime - lastpoketime;
+             avgpoketime = (avgpoketime + totalpoketime) / 2;
+         }
+
+         if (avgpoketime < 150) {
+             $("#pokecount").css("color", "red");
+             if (!music.playing()) {
+                 music.fade(0.0, 1.0, 750);
+                 music.play();
+             } else {
+                 if (!terribleBrowser) {
+                     music.rate(1.5);
+                 }
+             }
+         } else if (avgpoketime < 250) {
+             $("#pokecount").css("color", "orange");
+             if (!music.playing()) {
+                 music.fade(0.0, 1.0, 750);
+                 music.play();
+             } else {
+                 if (!terribleBrowser) {
+                     music.rate(1.15);
+                 }
+             }
+         } else if (avgpoketime < 500) {
+             $("#pokecount").css("color", "gold");
+             if (!music.playing()) {
+                 music.fade(0.0, 1.0, 750);
+                 music.play();
+             }
+         } else {
+             $("#pokecount").css("color", "");
+             if (music.playing()) {
+                 if (terribleBrowser) {
+                     music.rate(1.0);
+                 } else {
+                     music.rate(0.8);
+                 }
+
+                 music.fade(1.0, 0.0, 500);
+                 setTimeout(function() {
+
+                     music.pause();
+                 }, 500);
+             }
+         }
+
+         if (totalpoketime > 200) {
+             if (pokecount === 1) {
+                 $(mango).addClass("animated " + "jello");
+             } else {
+                 animateElement("#mango", "jello", "jello");
+             }
+         }
+
+         if (pokecount % 10 === 0) {
+             animateElement("#pokecount", "tada", "tada");
+             ding.play();
+         } else {
+             pop.play();
+         }
+
+         //banner animation
+         if (pokecount % 25 === 0) {
+             animateBanner();
+         }
+
+         //If maximum count reached
+         if (pokecount == Math.pow(2, 53) - 1) {
+             animateElement("#pokecount", "tada", "hinge");
+             pokecount = 0;
+         }
+
+         //Animate the poker
+         if (mobile) {
+             $("#poker").css("top", "60px");
+
+             setTimeout(function() {
+                 $("#poker").css("top", "100px");
+             }, 100);
+         } else { //desktop
+             $("#poker").css("left", "-290px");
+
+             setTimeout(function() {
+                 $("#poker").css("left", "-330px");
+             }, 100);
+         }
+
+         //Set current time to previous
+         lastpoketime = currentpoketime;
+
+     });
+
+     // SPACE POKE TRIGGER
+     $('body').keyup(function(e) {
+         if (e.keyCode == 32) {
+             $("#mango").click();
+         }
+     });
  });
