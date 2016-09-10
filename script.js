@@ -170,13 +170,19 @@
              }
          }
 
-         if (totalpoketime > 200) {
+         if (!mobile && totalpoketime > 200) {
              if (pokecount === 1) {
                  $(mango).addClass("animated " + "jello");
              } else {
                  animateElement("#mango", "jello", "jello");
              }
-         }
+         } else if (mobile && totalpoketime > 400) {
+			 if (pokecount === 1) {
+                 $(mango).addClass("animated " + "jello");
+             } else {
+                 animateElement("#mango", "jello", "jello");
+             }
+		 }
 
          if (pokecount % 10 === 0) {
              animateElement("#pokecount", "tada", "tada");
