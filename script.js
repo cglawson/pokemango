@@ -4,7 +4,7 @@
 
      /*
 		AlaskaRobotics
-		Creative Commons 0
+		Creative Commons
 		http://www.freesound.org/people/AlaskaRobotics/sounds/221091/
 	*/
      var pop = new Howl({
@@ -13,7 +13,7 @@
 
      /*
 		sethlind
-		Creative Commons 0
+		Creative Commons
 		https://www.freesound.org/people/sethlind/sounds/265012/
 	*/
      var ding = new Howl({
