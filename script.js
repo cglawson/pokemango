@@ -47,13 +47,12 @@
      }
 
      var isMobileOrDesktop = function isMobileOrDesktop() {
+         //Force pre-load of sounds
+         pop.load();
+         ding.load();
+         music.load();
+
          if ($(window).width() <= 800) { //mobile
-
-             //Force pre-load of sounds
-             pop.load();
-             ding.load();
-             music.load();
-
              return true;
          } else { //desktop
              return false;
@@ -61,6 +60,17 @@
      }
 
      // GLOBAL VARIABLES
+
+     // pokecount local storage
+     var pokecount = 0;
+     if (typeof(Storage) !== "undefined") {
+         if (localStorage.pokecount) {
+             //Retrieve
+             pokecount = Number(localStorage.pokecount);
+             //Display
+             $("#pokecount").text(pokecount)
+         }
+     }
 
      // detect browser
      var terribleBrowser = isInternetExplorer();
@@ -76,7 +86,6 @@
      var inTransitions = ["bounceIn", "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "fadeInUp", "fadeInUpBig", "lightSpeedIn", "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight", "rollIn", "zoomIn", "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "slideInDown", "slideInLeft", "slideInRight", "slideInUp"];
      var outTransitions = ["bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight", "bounceOutUp", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig", "fadeOutUp", "fadeOutUpBig", "lightSpeedOut", "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft", "rotateOutUpRight", "rollOut", "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp", "slideOutDown", "slideOutLeft", "slideOutRight", "slideOutUp"];
 
-     var pokecount = 0;
      var lastpoketime;
      var totalpoketime = 1000;
      var avgpoketime = 1000;
@@ -121,8 +130,13 @@
          //Increase the mango
          $("#pokecount").text(++pokecount);
 
+         //Persist the pokecount
+         if (typeof(Storage) !== "undefined") {
+             localStorage.pokecount = pokecount;
+         }
+
          //Animate the mango and counter
-         if (pokecount > 1) {
+         if (typeof(lastpoketime) !== 'undefined') {
              totalpoketime = currentpoketime - lastpoketime;
              avgpoketime = (avgpoketime + totalpoketime) / 2;
          }
@@ -171,18 +185,10 @@
          }
 
          if (!mobile && totalpoketime > 200) {
-             if (pokecount === 1) {
-                 $(mango).addClass("animated " + "jello");
-             } else {
-                 animateElement("#mango", "jello", "jello");
-             }
+             animateElement("#mango", "jello", "jello");
          } else if (mobile && totalpoketime > 400) {
-			 if (pokecount === 1) {
-                 $(mango).addClass("animated " + "jello");
-             } else {
-                 animateElement("#mango", "jello", "jello");
-             }
-		 }
+             animateElement("#mango", "jello", "jello");
+         }
 
          if (pokecount % 10 === 0) {
              animateElement("#pokecount", "tada", "tada");
@@ -226,6 +232,26 @@
      $('body').keyup(function(e) {
          if (e.keyCode == 32) {
              $("#mango").click();
+         }
+     });
+
+     // RESET POKECOUNT
+     $("#pokecount").click(function() {
+         //stop the music and make score black
+         music.fade(1.0, 0.0, 100);
+         $("#pokecount").css("color", "black");
+
+         var reset = confirm("Do you really want to reset your poke count?");
+
+         if (reset == true) {
+             //reset poke count
+             pokecount = 0;
+             //persist to local storage
+             if (typeof(Storage) !== "undefined") {
+                 localStorage.pokecount = pokecount;
+             }
+             //display
+             $("#pokecount").text(pokecount);
          }
      });
  });
