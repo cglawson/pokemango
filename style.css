@@ -49,7 +49,7 @@
 	}
 }
 
-@media all and (max-width: 400px) {	
+@media all and (max-width: 400px) {
 	#pokecount {
 		font-size: 2.5rem;
 		right: 0.5rem;
