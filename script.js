@@ -238,7 +238,7 @@
      // RESET POKECOUNT
      $("#pokecount").click(function() {
          //stop the music and make score black
-         music.fade(1.0, 0.0, 100);
+         music.pause();
          $("#pokecount").css("color", "black");
 
          var reset = confirm("Do you really want to reset your poke count?");
